@@ -20,7 +20,7 @@ Node* init(int num)
 	return list;
 }
 
-Node * add(Node* lst, int num)
+Node* add(Node* lst, int num)
 {
 	struct Node *temp, *p;
 	temp = (Node*)malloc(sizeof(Node));
