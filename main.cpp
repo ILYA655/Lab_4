@@ -1,11 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
-//#include <iostream>
+#include <iostream>
 #include <locale.h>
 #include <stdlib.h>
 #include <time.h>
-//using namespace std;
+using namespace std;
 
 typedef struct Node{
 	int Data;
@@ -61,14 +61,14 @@ int** create(int n)
 	}
 
 	for (int i = 0; i < n; i++)
-		printf("V%d ", i + 1);
+		cout << "V" << i + 1 << " ";
 
 	for(int i = 0; i < n; i++)
 	{
-		printf("\n");
+		cout << "\n";
 		for (int j = 0; j < n; j++)
 		{
-			printf("%2d ", A1[i][j]);
+			cout << A1[i][j] << "  ";
 		}
 	}
 	return A1;
@@ -77,7 +77,7 @@ int** create(int n)
 void DFS(bool* A2, int n, int i, int** A1)
 {
 	A2[i] = true;
-	printf("%d ", i + 1);
+	cout << i + 1 << " ";
 	for (i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -93,17 +93,18 @@ void DFS(bool* A2, int n, int i, int** A1)
 int main()
 {
 	int n, **t;
-	printf("Vvedite razmer array: ");
-	scanf("%d", &n);
+	cout << "Enter array size: ";
+	//scanf("%d", &n);
+	cin >> n;
 	bool* A2 = (bool*)malloc(n * sizeof(bool));
 	t = create(n);
-	printf("\n");
+	cout << "\n";
 	for (int i = 0; i < n; i++)
 		A2[i] = false;
-	printf("Rezultat obhoda: ");
+	cout << "DFS result: ";
 	DFS(A2, n, 0, t);
 
-	printf("\n");
+	cout << "\n";
 	system("pause");
 	for (int i = 0; i < n; i++)
 		free(t[i]);
