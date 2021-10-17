@@ -5,29 +5,70 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stack> // стек
 using namespace std;
 
-typedef struct Node{
+typedef struct List{
 	int Data;
-	Node* next;
-}Node;
+	List* next;
+}List;
 
-Node* init(int num)
+List* init(int num)
 {
-	Node* list = (Node*)malloc(sizeof(Node));
-	list->Data = num;
-	list->next = NULL;
-	return list;
+	List* node = (List*)malloc(sizeof(List));
+	node->Data = num;
+	node->next = NULL;
+	return node;
 }
 
-Node* add(Node* lst, int num)
+List* add(List* lst, int num)
 {
-	struct Node *temp, *p;
-	temp = (Node*)malloc(sizeof(Node));
+	struct List *temp, *p;
+	temp = (List*)malloc(sizeof(List));
 	p = lst->next;
 	temp->Data = num;
 	temp->next = p;
 	return temp;
+}
+
+void steck(int** A1, int n, int i)
+{
+	stack<int> Stack;
+  	int nodes[n]; // вершины графа
+  	for (int i = 0; i < n; i++)
+		nodes[i] = 0; // исходно все вершины равны 0
+	Stack.push(0); // помещаем в очередь первую вершину 
+	while (!Stack.empty()) // пока стек не пуст
+	{
+		int node = Stack.top(); // извлекаем вершину
+    	Stack.pop();
+    	if (nodes[node] == 2) continue;
+    	nodes[node] = 2; // отмечаем ее как посещенную
+    	for (int j = n - 1; j >= 0; j--) // проверяем для нее все смежные вершины
+    	//for (int j = 0; j < n; j++)
+		{
+      		if (A1[node][j] == 1 && nodes[j] != 2) // если вершина смежная и не обнаружена
+      		{
+	    	    Stack.push(j); // добавляем ее в cтек
+    		    nodes[j] = 1; // отмечаем вершину как обнаруженную
+      		}
+    	}
+    cout << node + 1 << " "; // выводим номер вершины
+	}
+	cout << "\n";
+	for (int i = 0; i < n; i++)
+		cout << "V" << i + 1 << " ";
+
+	for(int i = 0; i < n; i++)
+	{
+		cout << "\n";
+		for (int j = 0; j < n; j++)
+		{
+			cout << A1[i][j] << "  ";
+		}
+	}
+	cout << "\n";
+	cin.get();
 }
 
 int** create(int n)
@@ -78,8 +119,8 @@ void DFS(bool* A2, int n, int i, int** A1)
 {
 	A2[i] = true;
 	cout << i + 1 << " ";
-	for (i = 0; i < n; i++)
-	{
+	//for (i = 0; i < n; i++)
+	//{
 		for (int j = 0; j < n; j++)
 		{
 			if (A1[i][j] == 1 && A2[j] == false)
@@ -87,14 +128,13 @@ void DFS(bool* A2, int n, int i, int** A1)
 				DFS(A2, n, j, A1);
 			}
 		}
-	}
+	//}
 }
 
 int main()
 {
 	int n, **t;
 	cout << "Enter array size: ";
-	//scanf("%d", &n);
 	cin >> n;
 	bool* A2 = (bool*)malloc(n * sizeof(bool));
 	t = create(n);
@@ -105,6 +145,8 @@ int main()
 	DFS(A2, n, 0, t);
 
 	cout << "\n";
+	cout << "Stack result: ";
+	steck(t, n, 0);
 	system("pause");
 	for (int i = 0; i < n; i++)
 		free(t[i]);
