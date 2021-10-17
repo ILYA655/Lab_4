@@ -119,16 +119,14 @@ void DFS(bool* A2, int n, int i, int** A1)
 {
 	A2[i] = true;
 	cout << i + 1 << " ";
-	//for (i = 0; i < n; i++)
-	//{
-		for (int j = 0; j < n; j++)
+	for (int j = 0; j < n; j++)
+	{
+		if (A1[i][j] == 1 && A2[j] == false)
 		{
-			if (A1[i][j] == 1 && A2[j] == false)
-			{
-				DFS(A2, n, j, A1);
-			}
+			DFS(A2, n, j, A1);
 		}
-	//}
+	}
+
 }
 
 int main()
