@@ -62,19 +62,6 @@ void steck(int** A1, int n, int i)
     cout << node << " "; // выводим номер вершины
 	}
 	cout << "\n";
-	
-	/*for (int i = 0; i < n; i++)
-		cout << "V" << i + 1 << " ";
-
-	for(int i = 0; i < n; i++)
-	{
-		cout << "\n";
-		for (int j = 0; j < n; j++)
-		{
-			cout << A1[i][j] << "  ";
-		}
-	}
-	cout << "\n";*/
 	cin.get();
 }
 
@@ -109,7 +96,7 @@ int** create(int n)
 	}
 
 	for (int i = 0; i < n; i++)
-		cout << "V" << i + 1 << " ";
+		cout << "V" << i << " ";
 
 	for(int i = 0; i < n; i++)
 	{
