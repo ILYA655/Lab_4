@@ -34,10 +34,15 @@ List* add(List* lst, int num)
 void steck(int** A1, int n, int i)
 {
 	stack<int> Stack;
-  	int nodes[n]; // вершины графа
+  	int *nodes; // вершины графа
+	nodes = (int*)malloc(n * sizeof(int*));
   	for (int i = 0; i < n; i++)
 		nodes[i] = 0; // исходно все вершины равны 0
-	Stack.push(0); // помещаем в очередь первую вершину 
+	int a;
+	cout << "Enter vertex: " ;
+	cin >> a;
+	Stack.push(a - 1); // помещаем в очередь первую вершину
+	cout << "DFS stack result: ";
 	while (!Stack.empty()) // пока стек не пуст
 	{
 		int node = Stack.top(); // извлекаем вершину
@@ -53,10 +58,12 @@ void steck(int** A1, int n, int i)
     		    nodes[j] = 1; // отмечаем вершину как обнаруженную
       		}
     	}
+	
     cout << node + 1 << " "; // выводим номер вершины
 	}
 	cout << "\n";
-	for (int i = 0; i < n; i++)
+	
+	/*for (int i = 0; i < n; i++)
 		cout << "V" << i + 1 << " ";
 
 	for(int i = 0; i < n; i++)
@@ -67,7 +74,7 @@ void steck(int** A1, int n, int i)
 			cout << A1[i][j] << "  ";
 		}
 	}
-	cout << "\n";
+	cout << "\n";*/
 	cin.get();
 }
 
@@ -118,7 +125,7 @@ int** create(int n)
 void DFS(bool* A2, int n, int i, int** A1)
 {
 	A2[i] = true;
-	cout << i + 1 << " ";
+	cout << i << " ";
 	for (int j = 0; j < n; j++)
 	{
 		if (A1[i][j] == 1 && A2[j] == false)
@@ -131,7 +138,7 @@ void DFS(bool* A2, int n, int i, int** A1)
 
 int main()
 {
-	int n, **t;
+	int n, **t, s;
 	cout << "Enter array size: ";
 	cin >> n;
 	bool* A2 = (bool*)malloc(n * sizeof(bool));
@@ -139,11 +146,11 @@ int main()
 	cout << "\n";
 	for (int i = 0; i < n; i++)
 		A2[i] = false;
+	cout << "enter vertex: ";
+	cin >> s;
 	cout << "DFS result: ";
-	DFS(A2, n, 0, t);
-
+	DFS(A2, n, s, t);
 	cout << "\n";
-	cout << "Stack result: ";
 	steck(t, n, 0);
 	system("pause");
 	for (int i = 0; i < n; i++)
