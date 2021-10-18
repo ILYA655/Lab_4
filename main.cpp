@@ -31,6 +31,68 @@ List* add(List* lst, int num)
 	return temp;
 }
 
+void initialize(int n, List** vrt)
+{
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		vrt[i] = init(i);
+	}
+}
+
+void list(int n, int i, int** A1, List* lst)
+{
+	int j;
+	for (j = 0; j < n; j++)
+	{
+		if(A1[i][j] == 1);
+			add(lst, j);
+	}
+}
+
+void result(List** vrt, int** A1, int n)
+{
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		list(n, i, A1, vrt[i]);
+	}
+}
+
+void print(List** vrt, int n)
+{
+	int i, j;
+	for (i = 0; i < n; i++)
+	{
+		cout << "\n";
+		List* x = vrt[i];
+		for (j = 0; j < n; j++)
+		{
+			if (vrt[i] != NULL)
+			{
+				cout << vrt[i]->Data + 1 << " ";
+				vrt[i] = vrt[i]->next;
+			}
+		}
+		vrt[i] = x;
+	}
+	cout << "\n";
+}
+
+void DFS_list(bool* A2, int n, int i, List** vrt)
+{
+	A2[i] = true;
+	cout << i << " ";
+	while (vrt[i]->next != NULL)
+	{
+		vrt[i] = vrt[i]->next;
+		int j = vrt[i]->Data;
+		if (A2[j] == false)
+			DFS_list(A2, n, j, vrt);
+	}
+
+}
+
 void steck(int** A1, int n, int i)
 {
 	stack<int> Stack;
@@ -125,7 +187,7 @@ void DFS(bool* A2, int n, int i, int** A1)
 
 int main()
 {
-	int n, **t, s;
+	int n, **t, s, o;
 	cout << "Enter array size: ";
 	cin >> n;
 	bool* A2 = (bool*)malloc(n * sizeof(bool));
@@ -139,6 +201,19 @@ int main()
 	DFS(A2, n, s, t);
 	cout << "\n";
 	steck(t, n, 0);
+	
+	List** vrt = (List**)malloc(n * sizeof(List*));
+	
+	initialize(n, vrt);
+	result(vrt, t, n);
+	
+	print(vrt, n);
+	cout << "enter vertex: ";
+	cin >> o;
+	cout << "DFS list result: ";
+	for (int i = 0; i < n; i++)
+		A2[i] = false;
+	DFS_list(A2, n, o, vrt);
 	system("pause");
 	for (int i = 0; i < n; i++)
 		free(t[i]);
