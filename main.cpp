@@ -41,7 +41,7 @@ void steck(int** A1, int n, int i)
 	int a;
 	cout << "Enter vertex: " ;
 	cin >> a;
-	Stack.push(a - 1); // помещаем в очередь первую вершину
+	Stack.push(a); // помещаем в очередь первую вершину
 	cout << "DFS stack result: ";
 	while (!Stack.empty()) // пока стек не пуст
 	{
@@ -59,7 +59,7 @@ void steck(int** A1, int n, int i)
       		}
     	}
 	
-    cout << node + 1 << " "; // выводим номер вершины
+    cout << node << " "; // выводим номер вершины
 	}
 	cout << "\n";
 	
